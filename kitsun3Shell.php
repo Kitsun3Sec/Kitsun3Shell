@@ -67,9 +67,9 @@ main();
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xhr.onreadystatechange = function() { // Chama a função quando o estado mudar.
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
-                        output = xhr.responseText.split("id='response'>")[0].split("<div")[0];
+                        var output = xhr.responseText.split("id='response'>")[0].split("<div")[0];
                         var element = document.getElementById('output');
-                        pmpt = xhr.responseText.split('id="prompt">')[2].split("</div>")[0];
+                        var pmpt = xhr.responseText.split('id="prompt">')[2].split("</div>")[0];
                         element.innerHTML = '<pre>' + element.innerHTML + pmpt + command + '\n' + output + '</pre>';
                     }
                 }
@@ -91,7 +91,12 @@ main();
                 myInput.addEventListener("keyup", function(event) {
                     event.preventDefault();
                     if (event.keyCode === 13) {
+                        if (myInput.value == 'clear'){
+                            location.reload();
+                            return;
+                        }
                         execComand(myInput.value);
+                        document.getElementById('myInput').value = '';
                     }
                 });
             }
