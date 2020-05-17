@@ -55,12 +55,17 @@ main();
                 color: green;
                 font-weight: bolder;
                 outline: none;
+                display: inline;
             }
 
             #terminal {
                 padding: 10px;
                 margin: 20px;
                 background-color:#272822;
+            }
+
+            #prompt {
+                display: inline;
             }
         </style>
 
