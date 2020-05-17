@@ -31,7 +31,7 @@ main();
         <title>Kitsun3Shell</title>
         <style>
             body {
-                background-color: black;
+                background-color: #3e3d32;
                 color: #ff6666;
                 font-size: medium ;
                 font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
@@ -50,7 +50,7 @@ main();
             }
 
             input {
-                background-color: black;
+                background-color:#272822;
                 border: 0px;
                 color: green;
                 font-weight: bolder;
@@ -58,11 +58,9 @@ main();
             }
 
             #terminal {
-                opacity: 0.6;
                 padding: 10px;
                 margin: 20px;
-                background-color:#312d28;
-                background-image:linear-gradient(-87deg, rgba(255,255,255,0.1) 0%,rgba(255,255,255,0.08) 49%,rgba(255,255,255,0.03)  51%,rgba(255,255,255,0) 100%);
+                background-color:#272822;
             }
         </style>
 
@@ -128,9 +126,8 @@ main();
 
             </pre>
         <div id='output'></div>
-
             <?php
-                echo '<div id="prompt"><span>kitsun3@</span>'. $_SERVER['SERVER_NAME'].':$'. '<span id="path">'.getcwd().' $ '.'</span></div>';
+                echo '<div id="prompt"><span>kitsun3@shell</span>:$'. '<span id="path">'.getcwd().' $ '.'</span></div>';
             ?>
             <input type="text" name="cmd" id="myInput">
         </div>
